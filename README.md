@@ -1,1 +1,1 @@
-ukol_2
+Toto je repozitář s druhým úkolem.
