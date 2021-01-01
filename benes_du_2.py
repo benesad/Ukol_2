@@ -23,6 +23,15 @@ def cteni_jsonu_features(soubor,nazev):
         print(f"Soubor {nazev} neni validni.\n", e)
         exit()
         
+def cteni_kontejneru(misto):
+    ulice = misto["properties"]["STATIONNAME"]
+    souradnice = misto["geometry"]["coordinates"]
+    pristup = misto["properties"]["PRISTUP"]
+
+    if pristup=="volně":
+        return ulice, souradnice
+    return None, None
+
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
