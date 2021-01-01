@@ -6,6 +6,14 @@ from sys import exit
 CESTA_KONTEJNERY = "kontejnery.geojson"
 CESTA_ADRESY = "adresy.geojson"
 
+def ziskej_souradsys():
+    """*Ziskani souradnic systemu ve formatu S-JTSK."""
+    return prevod_WGS_na_SJTSK(CRS.from_epsg(4326))
+
+def prevod_WGS_na_SJTSK(wgs):
+    """*Prevod z WGS-84 na S-JTSK."""
+    return Transformer.from_crs(wgs, CRS.from_epsg(5514))
+
 def nacteni_souboru(nazev):
     """*Nacteni souboru a validace, jestli soubor existuje"""
     try:
@@ -37,7 +45,9 @@ def cteni_adresy(misto):
     souradnice_sirka = misto["geometry"]["coordinates"][1]
     souradnice_delka = misto["geometry"]["coordinates"][0]
 
-    return ulice, wgs2jtsk.transform(souradnice_sirka, souradnice_delka)
+    return ulice, wgsdojtsk.transform(souradnice_sirka, souradnice_delka)
+
+wgsdojtsk = ziskej_souradsys()
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
