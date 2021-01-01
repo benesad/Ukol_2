@@ -15,7 +15,7 @@ def prevod_WGS_na_SJTSK(wgs):
     return Transformer.from_crs(wgs, CRS.from_epsg(5514))
 
 def nacteni_souboru(nazev):
-    """*Nacteni souboru a validace, jestli soubor existuje"""
+    """*Nacteni souboru a validace, jestli soubor existuje."""
     try:
         return open(nazev, "r", encoding="UTF-8")
     except FileNotFoundError:
@@ -56,3 +56,20 @@ soubor_adresy = nacteni_souboru(CESTA_ADRESY)
 
 data_kontejnery = cteni_jsonu_features(soubor_kontejnery, CESTA_KONTEJNERY)
 data_adresy = cteni_jsonu_features(soubor_adresy, CESTA_ADRESY)
+
+
+print(f"Nacteno adresnich bodu: {len(xxx)}")
+print(f"Nacteno kontejneru na trideny odpad: {len(xxxx)}")
+
+print(
+    "\n"
+    "Prumerna vzdalenost adresniho bodu k verejnemu kontejneru: "
+    f"{prumer:.0f} metru"
+)
+
+print(f"Median vzdalenosti ke kontejneru: {median:.0f} metru")
+
+print(
+    f"Nejdale je ke kontejnerum je z adresy '{xxxx}' "
+    f"a to {maximum:.0f} metru."
+)
