@@ -57,9 +57,22 @@ soubor_adresy = nacteni_souboru(CESTA_ADRESY)
 data_kontejnery = cteni_jsonu_features(soubor_kontejnery, CESTA_KONTEJNERY)
 data_adresy = cteni_jsonu_features(soubor_adresy, CESTA_ADRESY)
 
+serializace_kontejnery = serializace_dat(data_kontejnery)
 
-print(f"Nacteno adresnich bodu: {len(xxx)}")
-print(f"Nacteno kontejneru na trideny odpad: {len(xxxx)}")
+serializace_adresy = serializace_dat(data_adresy, False)
+
+maximum = max(vzdalenosti.values())
+
+for (adresa, vzdalenost) in vzdalenosti.items():
+    if vzdalenost == maximum:
+        nejvzdalenejsi = adresa
+
+vzdalenosti = generovani_min_vzdalenosti(serializace_kontejnery, serializace_adresy)
+
+# vypsani vysledku v terminalu
+
+print(f"Nacteno adresnich bodu: {len(serializace_adresy)}")
+print(f"Nacteno kontejneru na trideny odpad: {len(serializace_kontejnery)}")
 
 print(
     "\n"
@@ -70,6 +83,6 @@ print(
 print(f"Median vzdalenosti ke kontejneru: {median:.0f} metru")
 
 print(
-    f"Nejdale je ke kontejnerum je z adresy '{xxxx}' "
+    f"Nejdale je ke kontejnerum je z adresy '{nejvzdalenejsi}' "
     f"a to {maximum:.0f} metru."
 )
