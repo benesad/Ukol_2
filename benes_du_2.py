@@ -32,6 +32,12 @@ def cteni_kontejneru(misto):
         return ulice, souradnice
     return None, None
 
+def cteni_adresy(misto):
+    ulice = misto["properties"]["addr:street"] + " " + misto["properties"]["addr:housenumber"]
+    souradnice_sirka = misto["geometry"]["coordinates"][1]
+    souradnice_delka = misto["geometry"]["coordinates"][0]
+
+    return ulice, wgs2jtsk.transform(souradnice_sirka, souradnice_delka)
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
