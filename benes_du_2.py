@@ -47,6 +47,17 @@ def cteni_adresy(misto):
 
     return ulice, wgsdojtsk.transform(souradnice_sirka, souradnice_delka)
 
+def median(vzdalenosti):
+    sez_vzdalenosti = list(vzdalenosti.values())
+    sez_vzdalenosti.sort()
+    p = (len(sez_vzdalenosti) - 1) // 2
+
+    # Pokud je zbytek po deleni 0 => False, pokud je 1 => True
+    if len(sez_vzdalenosti) % 2:
+        return sez_vzdalenosti[p]
+
+    return (sez_vzdalenosti[p] + sez_vzdalenosti[p + 1]) / 2
+
 wgsdojtsk = ziskej_souradsys()
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -61,13 +72,17 @@ serializace_kontejnery = serializace_dat(data_kontejnery)
 
 serializace_adresy = serializace_dat(data_adresy, False)
 
+vzdalenosti = generovani_min_vzdalenosti(serializace_kontejnery, serializace_adresy)
+
+prumer = sum(vzdalenosti.values()) / len(vzdalenosti)
+
+median = median(vzdalenosti)
+
 maximum = max(vzdalenosti.values())
 
 for (adresa, vzdalenost) in vzdalenosti.items():
     if vzdalenost == maximum:
         nejvzdalenejsi = adresa
-
-vzdalenosti = generovani_min_vzdalenosti(serializace_kontejnery, serializace_adresy)
 
 # vypsani vysledku v terminalu
 
