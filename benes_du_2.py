@@ -90,20 +90,20 @@ def generovani_min_vzdalenosti(kontejnery, adresy):
 
     for (adresa_ulice, adresa_souradnice) in adresy.items():
 
-        min = -1
+        min_vzd = -1
         prvni = True
 
         for kontejnery_souradnice in kontejnery.values():
             vzdalenost = pythagoras(adresa_souradnice, kontejnery_souradnice)
-            if prvni or vzdalenost < min:
-                min = vzdalenost
+            if prvni or vzdalenost < min_vzd:
+                min_vzd = vzdalenost
                 prvni = False
 
-        if min > 10000:
+        if min_vzd > 10000:
             print(" CHYBA: Kontejner je dale nez 10 km.")
             exit()
 
-        vzdalenosti[adresa_ulice] = min
+        vzdalenosti[adresa_ulice] = min_vzd
 
     return vzdalenosti
 
