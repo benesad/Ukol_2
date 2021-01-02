@@ -122,7 +122,7 @@ def median(vzdalenosti):
 # 
 wgsdojtsk = ziskej_souradsys()
 
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
+os.path.dirname(os.path.abspath(__file__))
 
 soubor_kontejnery = nacteni_souboru(CESTA_KONTEJNERY)
 soubor_adresy = nacteni_souboru(CESTA_ADRESY)
