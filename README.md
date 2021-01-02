@@ -3,5 +3,5 @@
 xxxxx
 ## Vstupní data
 xxxxx
-## Výstup
+## `Výstup`
 xxxxx
