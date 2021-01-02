@@ -47,6 +47,37 @@ def cteni_adresy(misto):
 
     return ulice, wgsdojtsk.transform(souradnice_sirka, souradnice_delka)
 
+def serializace_dat(data, jeToKontejner=True):
+    serializace = {}
+    pocet_neplatnych = 0
+
+    for misto in data:
+        try:
+            if jeToKontejner:
+                klic, hodnota = cteni_kontejneru(misto)
+            else:
+                klic, hodnota = cteni_adresy(misto)
+            
+            if klic==None:
+                continue
+
+            serializace[klic] = hodnota
+        except KeyError:
+            pocet_neplatnych+=1
+
+    nazev = "kontejneru"
+    if jeToKontejner==False:
+        nazev = "adres"
+
+    if pocet_neplatnych > 0:
+        print(f"POZOR: vyradil jsem {pocet_neplatnych} {nazev}, protoze neobsahovaly potrebna data.")
+
+    if len(serializace)==0:
+        print(f"CHYBA: nemam k dispozici dostatecny pocet dat pro vypocet (u {nazev}).")
+        exit()
+
+    return (serializace)
+    
 def pythagoras(s1, s2):
     return sqrt(abs(s1[0] - s2[0])**2 + abs(s1[1] - s2[1])**2)
 
