@@ -21,6 +21,9 @@ def nacteni_souboru(nazev):
     except FileNotFoundError:
         print(f"CHYBA: Pozadovany soubor {nazev} neexistuje.")
         exit()
+    except PermissionError:
+        print(f"CHYBA: Nemam pristup k {nazev}." )
+        exit()
 
 def cteni_jsonu_features(soubor,nazev):
     """*Prijme na vstupu soubor a jeho obsah precte jako JSON a vrati vysledek pod klicem "features". 
