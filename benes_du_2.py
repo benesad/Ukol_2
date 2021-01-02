@@ -19,7 +19,7 @@ def nacteni_souboru(nazev):
     try:
         return open(nazev, "r", encoding="UTF-8")
     except FileNotFoundError:
-        print(f"Pozadovany soubor {nazev} neexistuje.")
+        print(f"CHYBA: Pozadovany soubor {nazev} neexistuje.")
         exit()
 
 def cteni_jsonu_features(soubor,nazev):
@@ -28,7 +28,7 @@ def cteni_jsonu_features(soubor,nazev):
     try:
         return json.load(soubor)["features"]
     except ValueError as e: # validuje i pokud se jedna o validni JSON
-        print(f"Soubor {nazev} neni validni.\n", e)
+        print(f"CHYBA: Soubor {nazev} neni validni.\n", e)
         exit()
         
 def cteni_kontejneru(misto):
@@ -97,7 +97,7 @@ def generovani_min_vzdalenosti(kontejnery, adresy):
                 prvni = False
 
         if min > 10000:
-            print("Kontejner je dale nez 10 km.")
+            print(" CHYBA: Kontejner je dale nez 10 km.")
             exit()
 
         vzdalenosti[adresa_ulice] = min
@@ -116,6 +116,7 @@ def median(vzdalenosti):
 
     return (sez_vzdalenosti[p] + sez_vzdalenosti[p + 1]) / 2
 
+# 
 wgsdojtsk = ziskej_souradsys()
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -149,13 +150,13 @@ print(f"Nacteno kontejneru na trideny odpad: {len(serializace_kontejnery)}")
 
 print(
     "\n"
-    "Prumerna vzdalenost adresniho bodu k verejnemu kontejneru: "
+    "Prumerna vzdalenost adresniho bodu k verejne dostupnemu kontejneru: "
     f"{prumer:.0f} metru"
 )
 
 print(f"Median vzdalenosti ke kontejneru: {median:.0f} metru")
 
 print(
-    f"Nejdale je ke kontejnerum je z adresy '{nejvzdalenejsi}' "
-    f"a to {maximum:.0f} metru."
+    f"Nejdale je ke kontejneru je z adresniho bodu '{nejvzdalenejsi}' "
+    f"- {maximum:.0f} metru"
 )
