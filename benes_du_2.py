@@ -50,8 +50,8 @@ def cteni_adresy(misto):
 
     return ulice, wgsdojtsk.transform(souradnice_sirka, souradnice_delka)
 
-def serializace_dat(data, jeToKontejner=True):
-    serializace = {}
+def nacteni_dat(data, jeToKontejner=True):
+    nacteni = {}
     pocet_neplatnych = 0
 
     for misto in data:
@@ -64,7 +64,7 @@ def serializace_dat(data, jeToKontejner=True):
             if klic==None:
                 continue
 
-            serializace[klic] = hodnota
+            nacteni[klic] = hodnota
         except KeyError:
             pocet_neplatnych+=1
 
@@ -75,11 +75,11 @@ def serializace_dat(data, jeToKontejner=True):
     if pocet_neplatnych > 0:
         print(f"POZOR: vyradil jsem {pocet_neplatnych} {nazev}, protoze neobsahovaly potrebna data.")
 
-    if len(serializace)==0:
+    if len(nacteni)==0:
         print(f"CHYBA: nemam k dispozici dostatecny pocet dat pro vypocet (u {nazev}).")
         exit()
 
-    return (serializace)
+    return (nacteni)
     
 def pythagoras(s1, s2):
     return sqrt((s1[0] - s2[0])**2 + (s1[1] - s2[1])**2)
@@ -130,11 +130,11 @@ soubor_adresy = nacteni_souboru(CESTA_ADRESY)
 data_kontejnery = cteni_jsonu_features(soubor_kontejnery, CESTA_KONTEJNERY)
 data_adresy = cteni_jsonu_features(soubor_adresy, CESTA_ADRESY)
 
-serializace_kontejnery = serializace_dat(data_kontejnery)
+nacteni_kontejnery = nacteni_dat(data_kontejnery)
 
-serializace_adresy = serializace_dat(data_adresy, False)
+nacteni_adresy = nacteni_dat(data_adresy, False)
 
-vzdalenosti = generovani_min_vzdalenosti(serializace_kontejnery, serializace_adresy)
+vzdalenosti = generovani_min_vzdalenosti(nacteni_kontejnery, nacteni_adresy)
 
 prumer = sum(vzdalenosti.values()) / len(vzdalenosti)
 
@@ -148,18 +148,14 @@ for (adresa, vzdalenost) in vzdalenosti.items():
 
 # vypsani vysledku v terminalu
 
-print(f"Nacteno adresnich bodu: {len(serializace_adresy)}")
-print(f"Nacteno kontejneru na trideny odpad: {len(serializace_kontejnery)}")
+print("\n")
+print(f"Nacteno adresnich bodu: {len(nacteni_adresy)}")
+print(f"Nacteno kontejneru na trideny odpad: {len(nacteni_kontejnery)}")
 
 print(
     "\n"
-    "Prumerna vzdalenost adresniho bodu k verejne dostupnemu kontejneru: "
-    f"{prumer:.0f} metru"
-)
+    f"Prumerna vzdalenost adresniho bodu k verejne dostupnemu kontejneru: "f"{prumer:.0f}"" metru")
 
 print(f"Median vzdalenosti ke kontejneru: {median:.0f} metru")
-
-print(
-    f"Nejdale je ke kontejneru je z adresniho bodu '{nejvzdalenejsi}' "
-    f"- {maximum:.0f} metru"
-)
+print(f"Nejdale je ke kontejneru je z adresniho bodu '{nejvzdalenejsi}' konkretne {maximum:.0f} metru")
+    
