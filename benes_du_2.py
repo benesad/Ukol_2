@@ -79,7 +79,7 @@ def serializace_dat(data, jeToKontejner=True):
     return (serializace)
     
 def pythagoras(s1, s2):
-    return sqrt(abs(s1[0] - s2[0])**2 + abs(s1[1] - s2[1])**2)
+    return sqrt((s1[0] - s2[0])**2 + (s1[1] - s2[1])**2)
 
 def generovani_min_vzdalenosti(kontejnery, adresy):
 
