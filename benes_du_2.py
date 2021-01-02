@@ -7,15 +7,15 @@ CESTA_KONTEJNERY = "kontejnery.geojson"
 CESTA_ADRESY = "adresy.geojson"
 
 def ziskej_souradsys():
-    """*Ziskani souradnic systemu ve formatu S-JTSK."""
+    """Ziskani souradnic systemu ve formatu S-JTSK."""
     return prevod_WGS_na_SJTSK(CRS.from_epsg(4326))
 
 def prevod_WGS_na_SJTSK(wgs):
-    """*Prevod z WGS-84 na S-JTSK."""
+    """Prevod z WGS-84 na S-JTSK."""
     return Transformer.from_crs(wgs, CRS.from_epsg(5514))
 
 def nacteni_souboru(nazev):
-    """*Nacteni souboru a validace, jestli soubor existuje."""
+    """Nacteni souboru a validace, jestli soubor existuje a ma k nemu pristup."""
     try:
         return open(nazev, "r", encoding="UTF-8")
     except FileNotFoundError:
@@ -26,7 +26,7 @@ def nacteni_souboru(nazev):
         exit()
 
 def cteni_jsonu_features(soubor,nazev):
-    """*Prijme na vstupu soubor a jeho obsah precte jako JSON a vrati vysledek pod klicem "features". 
+    """Prijme na vstupu soubor a jeho obsah precte jako JSON a vrati vysledek pod klicem "features". 
     Provede validaci, pokud dojde pri cteni k chybe."""
     try:
         return json.load(soubor)["features"]
@@ -39,11 +39,11 @@ def cteni_kontejneru(misto):
     souradnice = misto["geometry"]["coordinates"]
     pristup = misto["properties"]["PRISTUP"]
 
-    if pristup=="volně":
+    if pristup=="volně": # selekce pouze volne stojicich kontejneru
         return ulice, souradnice
     return None, None
 
-def cteni_adresy(misto):
+def cteni_adresy(misto): # precte ulicia cislo domu, ktere spoji + souradnice 
     ulice = misto["properties"]["addr:street"] + " " + misto["properties"]["addr:housenumber"]
     souradnice_sirka = misto["geometry"]["coordinates"][1]
     souradnice_delka = misto["geometry"]["coordinates"][0]
@@ -99,7 +99,7 @@ def hledani_min_vzdalenosti(kontejnery, adresy):
                 min_vzd = vzdalenost
                 prvni = False
 
-        if min_vzd > 10000:
+        if min_vzd > 10000: # osetreni, ze vzdalenost je mensi nez 10 km
             print(" CHYBA: Kontejner je dale nez 10 km.")
             exit()
 
@@ -113,13 +113,12 @@ def median(vzdalenosti):
     p = (len(sez_vzdalenosti) - 1) // 2
 
     # kdyz vyjde zbytek po vypoctu 0, program vypise false
-    # kdyz vyjde Zbytek po vypoctu 1, program vypise treu
+    # kdyz vyjde zbytek po vypoctu 1, program vypise true
     if len(sez_vzdalenosti) % 2:
         return sez_vzdalenosti[p]
 
     return (sez_vzdalenosti[p] + sez_vzdalenosti[p + 1]) / 2
 
-# 
 wgsdojtsk = ziskej_souradsys()
 
 os.path.dirname(os.path.abspath(__file__))
