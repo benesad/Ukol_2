@@ -47,12 +47,39 @@ def cteni_adresy(misto):
 
     return ulice, wgsdojtsk.transform(souradnice_sirka, souradnice_delka)
 
+def pythagoras(s1, s2):
+    return sqrt(abs(s1[0] - s2[0])**2 + abs(s1[1] - s2[1])**2)
+
+def generovani_min_vzdalenosti(kontejnery, adresy):
+
+    vzdalenosti = {}
+
+    for (adresa_ulice, adresa_souradnice) in adresy.items():
+
+        min = -1
+        prvni = True
+
+        for kontejnery_souradnice in kontejnery.values():
+            vzdalenost = pythagoras(adresa_souradnice, kontejnery_souradnice)
+            if prvni or vzdalenost < min:
+                min = vzdalenost
+                prvni = False
+
+        if min > 10000:
+            print("Kontejner je dale nez 10 km.")
+            exit()
+
+        vzdalenosti[adresa_ulice] = min
+
+    return vzdalenosti
+
 def median(vzdalenosti):
     sez_vzdalenosti = list(vzdalenosti.values())
     sez_vzdalenosti.sort()
     p = (len(sez_vzdalenosti) - 1) // 2
 
-    # Pokud je zbytek po deleni 0 => False, pokud je 1 => True
+    # kdyz vyjde zbytek po vypoctu 0, program vypise false
+    # kdyz vyjde Zbytek po vypoctu 1, program vypise treu
     if len(sez_vzdalenosti) % 2:
         return sez_vzdalenosti[p]
 
