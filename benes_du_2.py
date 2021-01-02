@@ -84,7 +84,7 @@ def nacteni_dat(data, jeToKontejner=True):
 def pythagoras(s1, s2):
     return sqrt((s1[0] - s2[0])**2 + (s1[1] - s2[1])**2)
 
-def generovani_min_vzdalenosti(kontejnery, adresy):
+def hledani_min_vzdalenosti(kontejnery, adresy):
 
     vzdalenosti = {}
 
@@ -134,7 +134,7 @@ nacteni_kontejnery = nacteni_dat(data_kontejnery)
 
 nacteni_adresy = nacteni_dat(data_adresy, False)
 
-vzdalenosti = generovani_min_vzdalenosti(nacteni_kontejnery, nacteni_adresy)
+vzdalenosti = hledani_min_vzdalenosti(nacteni_kontejnery, nacteni_adresy)
 
 prumer = sum(vzdalenosti.values()) / len(vzdalenosti)
 
