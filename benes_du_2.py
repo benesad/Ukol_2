@@ -6,13 +6,9 @@ from sys import exit
 CESTA_KONTEJNERY = "kontejnery.geojson"
 CESTA_ADRESY = "adresy.geojson"
 
-def ziskej_souradsys():
-    """Ziskani souradnic systemu ve formatu S-JTSK."""
-    return prevod_WGS_na_SJTSK(CRS.from_epsg(4326))
-
-def prevod_WGS_na_SJTSK(wgs):
-    """Prevod z WGS-84 na S-JTSK."""
-    return Transformer.from_crs(wgs, CRS.from_epsg(5514))
+CRS_sjtsk = CRS.from_epsg(5514)
+CRS_wgs = CRS.from_epsg(4326)
+wgsdojtsk = Transformer.from_crs(CRS_wgs, CRS_sjtsk)
 
 def nacteni_souboru(nazev):
     """Nacteni souboru a validace, jestli soubor existuje a ma k nemu pristup."""
@@ -119,8 +115,6 @@ def median(vzdalenosti):
         return sez_vzdalenosti[p]
 
     return (sez_vzdalenosti[p] + sez_vzdalenosti[p + 1]) / 2
-
-wgsdojtsk = ziskej_souradsys()
 
 os.path.dirname(os.path.abspath(__file__))
 
