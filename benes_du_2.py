@@ -54,11 +54,11 @@ def nacteni_dat(data, jeToKontejner=True):
     for misto in data:
         try:
             if jeToKontejner:
-                klic, hodnota = cteni_kontejneru(misto)
+                ulice, souradnice = cteni_kontejneru(misto)
             else:
-                klic, hodnota = cteni_adresy(misto)
+                ulice, souradnice = cteni_adresy(misto)
             
-            nacteni[klic] = hodnota
+            nacteni[ulice] = souradnice
         except KeyError:
             pocet_neplatnych+=1
 
@@ -152,4 +152,3 @@ print(f"Prumerna vzdalenost adresniho bodu ke kontejneru: "f"{prumer:.0f}"" metr
 print()
 print(f"Median vzdalenosti ke kontejneru: {median:.0f} metru")
 print(f"Nejdale je ke kontejneru je z adresniho bodu '{nejvzdalenejsi}', konkretne {maximum:.0f} metru")
-    
