@@ -11,18 +11,18 @@ CRS_wgs = CRS.from_epsg(4326)
 wgsdojtsk = Transformer.from_crs(CRS_wgs, CRS_sjtsk)
 
 def nacteni_souboru(nazev):
-    """Nacteni souboru a validace, jestli soubor existuje a ma k nemu pristup."""
+    """Nacteni souboru a validace, zda soubor existuje a ma k nemu pristup."""
     try:
         with open(nazev, "r", encoding="UTF-8") as soubor:
             return json.load(soubor)["features"]
     except FileNotFoundError:
-        print(f"CHYBA: Pozadovany soubor {nazev} neexistuje.")
+        print(f"CHYBA: Pozadovany soubor {nazev} neexistuje. Program skonci.")
         exit()
     except PermissionError:
-        print(f"CHYBA: Nemam pristup k {nazev}." )
+        print(f"CHYBA: Nemam pristup k {nazev}.Program skonci.")
         exit()
     except ValueError as e: # validuje i pokud se jedna o validni JSON
-        print(f"CHYBA: Soubor {nazev} neni validni.\n", e)
+        print(f"CHYBA: Soubor {nazev} neni validni. Program skonci.\n", e)
         exit()
         
 def cteni_kontejneru(misto):
