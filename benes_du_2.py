@@ -17,19 +17,14 @@ def prevod_WGS_na_SJTSK(wgs):
 def nacteni_souboru(nazev):
     """Nacteni souboru a validace, jestli soubor existuje a ma k nemu pristup."""
     try:
-        return open(nazev, "r", encoding="UTF-8")
+        with open(nazev, "r", encoding="UTF-8") as soubor:
+            return json.load(soubor)["features"]
     except FileNotFoundError:
         print(f"CHYBA: Pozadovany soubor {nazev} neexistuje.")
         exit()
     except PermissionError:
         print(f"CHYBA: Nemam pristup k {nazev}." )
         exit()
-
-def cteni_jsonu_features(soubor,nazev):
-    """Prijme na vstupu soubor a jeho obsah precte jako JSON a vrati vysledek pod klicem "features". 
-    Provede validaci, pokud dojde pri cteni k chybe."""
-    try:
-        return json.load(soubor)["features"]
     except ValueError as e: # validuje i pokud se jedna o validni JSON
         print(f"CHYBA: Soubor {nazev} neni validni.\n", e)
         exit()
@@ -129,11 +124,8 @@ wgsdojtsk = ziskej_souradsys()
 
 os.path.dirname(os.path.abspath(__file__))
 
-soubor_kontejnery = nacteni_souboru(CESTA_KONTEJNERY)
-soubor_adresy = nacteni_souboru(CESTA_ADRESY)
-
-data_kontejnery = cteni_jsonu_features(soubor_kontejnery, CESTA_KONTEJNERY)
-data_adresy = cteni_jsonu_features(soubor_adresy, CESTA_ADRESY)
+data_kontejnery = nacteni_souboru(CESTA_KONTEJNERY)
+data_adresy = nacteni_souboru(CESTA_ADRESY)
 
 nacteni_kontejnery = nacteni_dat(data_kontejnery)
 
@@ -153,14 +145,11 @@ for (adresa, vzdalenost) in vzdalenosti.items():
 
 # vypsani vysledku v terminalu
 
-print("\n")
+print()
 print(f"Nacteno adresnich bodu: {len(nacteni_adresy)}")
 print(f"Nacteno kontejneru na trideny odpad: {len(nacteni_kontejnery)}")
-
-print(
-    "\n"
-    f"Prumerna vzdalenost adresniho bodu ke kontejneru: "f"{prumer:.0f}"" metru")
-
+print(f"Prumerna vzdalenost adresniho bodu ke kontejneru: "f"{prumer:.0f}"" metru")
+print()
 print(f"Median vzdalenosti ke kontejneru: {median:.0f} metru")
-print(f"Nejdale je ke kontejneru je z adresniho bodu '{nejvzdalenejsi}' konkretne {maximum:.0f} metru")
+print(f"Nejdale je ke kontejneru je z adresniho bodu '{nejvzdalenejsi}', konkretne {maximum:.0f} metru")
     
