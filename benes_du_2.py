@@ -84,7 +84,7 @@ def pythagoras(s1, s2):
     return sqrt((s1[0] - s2[0])**2 + (s1[1] - s2[1])**2)
 
 def hledani_min_vzdalenosti(kontejnery, adresy):
-    """Hleda minimlni vzdalenost od kontejneru."""
+    """Hleda minimalni vzdalenost od kontejneru."""
     vzdalenosti = {}
 
     for (adresa_ulice, adresa_souradnice) in adresy.items():
