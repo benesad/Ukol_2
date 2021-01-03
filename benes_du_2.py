@@ -35,15 +35,17 @@ def cteni_jsonu_features(soubor,nazev):
         exit()
         
 def cteni_kontejneru(misto):
+    """Cte informace z kontejnery.json potrebne pro praci."""
     ulice = misto["properties"]["STATIONNAME"]
     souradnice = misto["geometry"]["coordinates"]
     pristup = misto["properties"]["PRISTUP"]
 
     if pristup=="volně": # selekce pouze volne stojicich kontejneru
         return ulice, souradnice
-    return None, None
+    return ulice, None
 
-def cteni_adresy(misto): # precte ulicia cislo domu, ktere spoji + souradnice 
+def cteni_adresy(misto):
+    """Cte ulice a cisla domu, vysledek spoji, dale cte souradnice danych mist."""
     ulice = misto["properties"]["addr:street"] + " " + misto["properties"]["addr:housenumber"]
     souradnice_sirka = misto["geometry"]["coordinates"][1]
     souradnice_delka = misto["geometry"]["coordinates"][0]
@@ -61,9 +63,6 @@ def nacteni_dat(data, jeToKontejner=True):
             else:
                 klic, hodnota = cteni_adresy(misto)
             
-            if klic==None:
-                continue
-
             nacteni[klic] = hodnota
         except KeyError:
             pocet_neplatnych+=1
@@ -85,7 +84,7 @@ def pythagoras(s1, s2):
     return sqrt((s1[0] - s2[0])**2 + (s1[1] - s2[1])**2)
 
 def hledani_min_vzdalenosti(kontejnery, adresy):
-
+    """Hleda minimlni vzdalenost od kontejneru."""
     vzdalenosti = {}
 
     for (adresa_ulice, adresa_souradnice) in adresy.items():
@@ -93,7 +92,13 @@ def hledani_min_vzdalenosti(kontejnery, adresy):
         min_vzd = -1
         prvni = True
 
-        for kontejnery_souradnice in kontejnery.values():
+        for kontejnery_ulice, kontejnery_souradnice in kontejnery.items():
+            if kontejnery_souradnice==None and kontejnery_ulice==adresa_ulice:
+                min_vzd = 0
+                break
+            if kontejnery_souradnice==None:
+                continue
+            
             vzdalenost = pythagoras(adresa_souradnice, kontejnery_souradnice)
             if prvni or vzdalenost < min_vzd:
                 min_vzd = vzdalenost
@@ -108,6 +113,7 @@ def hledani_min_vzdalenosti(kontejnery, adresy):
     return vzdalenosti
 
 def median(vzdalenosti):
+    """Vypocet medianu"""
     sez_vzdalenosti = list(vzdalenosti.values())
     sez_vzdalenosti.sort()
     p = (len(sez_vzdalenosti) - 1) // 2
@@ -153,7 +159,7 @@ print(f"Nacteno kontejneru na trideny odpad: {len(nacteni_kontejnery)}")
 
 print(
     "\n"
-    f"Prumerna vzdalenost adresniho bodu k verejne dostupnemu kontejneru: "f"{prumer:.0f}"" metru")
+    f"Prumerna vzdalenost adresniho bodu ke kontejneru: "f"{prumer:.0f}"" metru")
 
 print(f"Median vzdalenosti ke kontejneru: {median:.0f} metru")
 print(f"Nejdale je ke kontejneru je z adresniho bodu '{nejvzdalenejsi}' konkretne {maximum:.0f} metru")
