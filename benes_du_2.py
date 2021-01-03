@@ -30,7 +30,7 @@ def nacteni_souboru(nazev):
         exit()
         
 def cteni_kontejneru(misto):
-    """Cte informace z kontejnery.json potrebne pro praci."""
+    """Cte informace z kontejnery.json potrebne pro praci. Pokud PRISTUP neni volne, tak nastavi souradnice None."""
     ulice = misto["properties"]["STATIONNAME"]
     souradnice = misto["geometry"]["coordinates"]
     pristup = misto["properties"]["PRISTUP"]
