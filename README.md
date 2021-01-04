@@ -8,7 +8,9 @@ Vstupními daty jsou 2 soubory GeoJSON. První obsahuje adresní body libovolné
 Turbo](http://overpass-turbo.eu/s/11rE). V souboru program musí najít atributy: 
 * `addr:street` - jméno ulice a v atributu
 * `addr:housenumber` - číslo orientační / číslo popisné
+
 Ty následně používá a případně vypíše do výstupu. Souřadnice ve WGS-84 program přepočítá do S-JTSK. Soubor je v repozitáři jako `adresy.geojson` a pod tímto jménem ho program také načítá.
+
 
 Druhý soubor obsahuje souřadnice kontejnerů na tříděný odpad, lze jej stáhnout z
 [pražského Geoportálu](https://www.geoportalpraha.cz/cs/data/otevrena-data/8726EF0E-0834-463B-9E5F-FE09E62D73FB)
