@@ -1,4 +1,4 @@
-## Toto je repozitář s druhým úkolem - vzdálenost kontejnerů na tříděný odpadod adresního bodu.
+## Toto je repozitář s druhým úkolem - vzdálenost kontejnerů na tříděný odpad od adresního bodu.
 ### Zadání
 Pro zvolenou množinu adresních bodů a množinu kontejnerů na tříděný odpad program zjistí průměrnou a maximální vzdálenost k nejbližšímu kontejneru na tříděný odpad. Pro každý adresní bod tedy určí nejbližší kontejner na tříděný odpad a následně z těchto vzdáleností spočte průměr, medián a maximum. Průměr, medián a maximum vypíše, pro maximum vypíše i adresu, která má nejbližší kontejner nejdále. Program započítává i neveřejné kontejnery k adresám, na kterých jsou přiděleny a započítává do statistik vzdálenost rovnou nule.
 
