@@ -1,4 +1,4 @@
-import json, os
+import json, os, argparse
 from pyproj import CRS, Transformer
 from math import sqrt
 from sys import exit
@@ -8,15 +8,25 @@ CESTA_ADRESY = "adresy.geojson"
 
 wgsdojtsk = Transformer.from_crs(CRS.from_epsg(4326), CRS.from_epsg(5514))
 
+"""Bonus, ktery nacte soubor jako parametr za pomoci modulu Argparse."""
+parser = argparse.ArgumentParser()
+parser.add_argument('-a', '--adresni_body', required=False, default=None)
+parser.add_argument('-k', '--kontejnery', required=False, default=None)
+args = parser.parse_args()
+while args.adresni_body is not None:
+    path_adresy = args.adresni_body
+if args.kontejnery is not None:
+    path_kontejnery = args.kontejnery
+
 def nacteni_souboru(nazev):
     """Nacteni souboru a validace, zda soubor existuje a ma k nemu pristup."""
     try:
         with open(nazev, "r", encoding="UTF-8") as soubor:
             return json.load(soubor)["features"]
-    except FileNotFoundError:
+    except FileNotFoundError: # zjistuje, zda existuje
         print(f"CHYBA: Pozadovany soubor {nazev} neexistuje. Program skonci.")
         exit()
-    except PermissionError:
+    except PermissionError: # zjistuje pristup k souboru
         print(f"CHYBA: Nemam pristup k {nazev}.Program skonci.")
         exit()
     except ValueError as e: # validuje i pokud se jedna o validni JSON
