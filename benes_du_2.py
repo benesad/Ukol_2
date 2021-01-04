@@ -6,9 +6,7 @@ from sys import exit
 CESTA_KONTEJNERY = "kontejnery.geojson"
 CESTA_ADRESY = "adresy.geojson"
 
-CRS_sjtsk = CRS.from_epsg(5514)
-CRS_wgs = CRS.from_epsg(4326)
-wgsdojtsk = Transformer.from_crs(CRS_wgs, CRS_sjtsk)
+wgsdojtsk = Transformer.from_crs(CRS.from_epsg(4326), CRS.from_epsg(5514))
 
 def nacteni_souboru(nazev):
     """Nacteni souboru a validace, zda soubor existuje a ma k nemu pristup."""
