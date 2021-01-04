@@ -11,8 +11,8 @@ Druhý soubor obsahuje souřadnice kontejnerů na tříděný odpad, lze jej st�
 [pražského Geoportálu](https://www.geoportalpraha.cz/cs/data/otevrena-data/8726EF0E-0834-463B-9E5F-FE09E62D73FB)
 v S-JTSK. 
 Každý kontejner obsahuje v atributu
-                                        * `STATIONNAME` adresu
-                                        * `PRISTUP` zda je přístupný volně, nebo je přístupný pouze obyvatelům domu. 
+* `STATIONNAME` adresu
+* `PRISTUP` zda je přístupný volně, nebo je přístupný pouze obyvatelům domu. 
     
 Soubor je v repozitáři pojmenovaný `kontejnery.geojson` a pod tímto jménem ho program také načítá.
 
