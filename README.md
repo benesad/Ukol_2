@@ -24,3 +24,14 @@ Soubor je v repozitáři pojmenovaný `kontejnery.geojson` a pod tímto jménem 
 Oba souboru obsahují pouze testovací data, nikoliv kompletní data tak, jak byla stažena, ačkoliv program funguje se všemi validními soubory se správným názvem a příponou `.geojson`.
 ### Výstup
 Program vypíše počet načtených adresních bodů společně s počtem kontejnerů na tříděný odpad. Dále vypíše průměr a medián vzdálenosti ke kontejneru a nakonec vypíše nadresní bod, který má ke kontejneru nejdále. Nutno zmínit, že jakmile je vzdálenost kontejneru od adresního bodu větší než 10 km, program vypíše chybovou hlášku a vypne se. Program též upozorní chybovým hlášením pokud `.geojson` obsahuje záznam s chybějcím atributem potřebným ke kompletní statistice. 
+#### Příklad výstupu
+Takto vypadá příkladný výstup pro sadu testovacích dat.
+```
+Nacteno adresnich bodu: 20
+Nacteno kontejneru na trideny odpad: 25
+
+Prumerna vzdalenost adresniho bodu ke kontejneru: 676 metru
+Median vzdalenosti ke kontejneru: 716 metru
+
+Nejdale je ke kontejneru je z adresniho bodu 'U invalidovny 549/5', konkretne 1145 metru
+```
