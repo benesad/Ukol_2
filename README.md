@@ -9,10 +9,13 @@ Turbo](http://overpass-turbo.eu/s/11rE). V souboru program nalezne atribut `addr
 
 Druhý soubor obsahuje souřadnice kontejnerů na tříděný odpad, lze jej stáhnout z
 [pražského Geoportálu](https://www.geoportalpraha.cz/cs/data/otevrena-data/8726EF0E-0834-463B-9E5F-FE09E62D73FB)
-v S-JTSK. Každý kontejner obsahuje v atributu `STATIONNAME` adresu, kde se
-nachází a v atributu `PRISTUP`, zda je veřejně přístupný, nebo je přístupný
-pouze obyvatelům domu. Soubor je v repozitáři pojmenovaný `kontejnery.geojson` a pod tímto jménem ho program také načítá.
+v S-JTSK. 
+Každý kontejner obsahuje v atributu
+                                        * `STATIONNAME` adresu
+                                        * `PRISTUP` zda je přístupný volně, nebo je přístupný pouze obyvatelům domu. 
+    
+Soubor je v repozitáři pojmenovaný `kontejnery.geojson` a pod tímto jménem ho program také načítá.
 
-Oba souboru obsahují pouze testovací data,, nikoliv kompletní data tak, jak byly stažena, ačkoliv program funguje se všemi validními soubory se správným názvem a příponou `.geojson`.
+Oba souboru obsahují pouze testovací data, nikoliv kompletní data tak, jak byla stažena, ačkoliv program funguje se všemi validními soubory se správným názvem a příponou `.geojson`.
 ### Výstup
 xxxxx
