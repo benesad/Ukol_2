@@ -13,9 +13,9 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-a', '--adresni_body', required=False, default=None)
 parser.add_argument('-k', '--kontejnery', required=False, default=None)
 args = parser.parse_args()
-while args.adresni_body is not None:
+if args.adresni_body != None:
     path_adresy = args.adresni_body
-if args.kontejnery is not None:
+if args.kontejnery != None:
     path_kontejnery = args.kontejnery
 
 def nacteni_souboru(nazev):
@@ -52,6 +52,10 @@ def cteni_adresy(misto):
     return ulice, wgsdojtsk.transform(souradnice_sirka, souradnice_delka)
 
 def nacteni_dat(data, jeToKontejner=True):
+    """Deli cteni kontejneru a adres, uklada je do datove struktury s klicem reprezentujicim 
+    ulici a hodnotu reprezentujici souradnice, souradnice mohou byt none v pripade, ze k nim 
+    neni volny pristup. Spocita vyrazene adresy a kontejnery, u kterych se nachazi potrebna 
+    data, na konci napise kolik je vyrazenych zaznamu"""
     nacteni = {}
     pocet_neplatnych = 0
 
