@@ -61,7 +61,7 @@ def nacteni_dat(data, jeToKontejner=True):
         nazev = "adres"
 
     if pocet_neplatnych > 0:
-        print(f"POZOR: vyradil jsem {pocet_neplatnych} {nazev}, protoze neobsahovaly potrebna data.")
+        print(f"POZOR: vyradil jsem {pocet_neplatnych} {nazev}, protoze neobsahovala potrebna data.")
 
     if len(nacteni)==0:
         print(f"CHYBA: nemam k dispozici dostatecny pocet dat pro vypocet (u {nazev}).")
