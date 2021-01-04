@@ -34,7 +34,8 @@ def nacteni_souboru(nazev):
         exit()
         
 def cteni_kontejneru(misto):
-    """Cte informace z kontejnery.json potrebne pro praci. Pokud PRISTUP neni volne, tak nastavi souradnice None."""
+    """Cte informace z kontejnery.json potrebne pro praci. Pokud PRISTUP neni 
+    volne, tak nastavi souradnice None."""
     ulice = misto["properties"]["STATIONNAME"]
     souradnice = misto["geometry"]["coordinates"]
     pristup = misto["properties"]["PRISTUP"]
@@ -84,6 +85,7 @@ def nacteni_dat(data, jeToKontejner=True):
     return (nacteni)
     
 def pythagoras(s1, s2):
+    """Vypocet vzdalenosti bodu pomoci Pythagorovy vety."""
     return sqrt((s1[0] - s2[0])**2 + (s1[1] - s2[1])**2)
 
 def hledani_min_vzdalenosti(kontejnery, adresy):
